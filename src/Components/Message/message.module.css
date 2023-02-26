@@ -1,0 +1,15 @@
+.error,
+.successful {
+  border-radius: 4px;
+  font-size: 1.4rem;
+  padding: 0.3rem;
+  transition: all 0.3s ease-in-out;
+}
+
+.error {
+  background-color: var(--error-msg);
+}
+
+.successful {
+  background-color: var(--success-msg);
+}
