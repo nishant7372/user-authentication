@@ -43,6 +43,7 @@ export default function NavBar() {
                     ? require("../../img/avatar2.png")
                     : `data:image/jpeg;base64, ${user.avatar}`
                 }
+                alt={"avatar"}
                 className={styles["avatar"]}
                 onClick={handleProfileClick}
               />
