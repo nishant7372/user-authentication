@@ -4,10 +4,13 @@ import { NavLink } from "react-router-dom";
 import { useEffect, useState } from "react";
 import { useLogout } from "../../hooks/useLogout";
 import { useAuthContext } from "../../hooks/useAuthContext";
+import { useNavigate, useLocation } from "react-router-dom";
 
 export default function NavBar() {
   const navColors = ["green"];
   const [index, setIndex] = useState(0);
+  const navigate = useNavigate();
+  const location = useLocation();
 
   const { logout } = useLogout();
   const { user } = useAuthContext();
@@ -24,6 +27,10 @@ export default function NavBar() {
   const parseUserName = (name) => {
     if (name.indexOf(" ") !== -1) return name.substring(0, name.indexOf(" "));
     else return name;
+  };
+
+  const handleProfileClick = () => {
+    if (location.pathname !== "/settings") navigate("/settings");
   };
 
   return (
@@ -55,6 +62,7 @@ export default function NavBar() {
                     : `data:image/jpeg;base64, ${user.avatar}`
                 }
                 className={styles["avatar"]}
+                onClick={handleProfileClick}
               />
               <div className={styles.userName}>
                 Hello, {parseUserName(user.name)}
