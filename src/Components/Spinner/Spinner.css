@@ -2,6 +2,7 @@
   width: max(3rem, 25.5px);
   -webkit-transition-property: -webkit-transform;
   -webkit-transition-duration: 1s;
+  transition-duration: 1s;
   -webkit-animation-name: rotate;
   -webkit-animation-iteration-count: infinite;
   -webkit-animation-timing-function: linear;

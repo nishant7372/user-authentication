@@ -74,7 +74,7 @@ body::-webkit-scrollbar-thumb {
 }
 
 div::-webkit-scrollbar {
-  width: 1rem;
+  width: 0.6rem;
 }
 
 div::-webkit-scrollbar-track {
