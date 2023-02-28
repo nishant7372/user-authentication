@@ -33,7 +33,7 @@ export default function NavBar() {
       <div className={styles.navbar}>
         <div className={styles.leftSection}>
           {/* <img src={require("../../img/logo.png")} /> */}
-          <div className={styles.name}>Task Manager</div>
+          <div className={styles.name}>User Auth Setup</div>
         </div>
         <div className={styles["rightSection"]}>
           {!user && (
