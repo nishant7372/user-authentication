@@ -11,24 +11,29 @@ import Error from "../../../../Components/Message/error";
 import Spinner from "../../../../Components/Spinner/Spinner";
 
 export default function Session({ session, active }) {
-  const { _id } = session;
-  const { osDetails, creationTime } = session.session;
+  const [renderMsg, setRenderMsg] = useState(false);
+
   const { sessionLogout, error, isPending } = useSessionLogout();
   const { readProfile } = useReadProfile();
-  const [renderMsg, setRenderMsg] = useState(false);
-  const date = new Date(creationTime);
-  const locale = navigator.locale;
 
-  const options = {
-    hour: "numeric",
-    minute: "numeric",
-    weekday: "short",
-    day: "numeric",
-    month: "short",
-    year: "numeric",
+  const { _id } = session;
+  const { osDetails, creationTime } = session.session;
+
+  const signInDate = (creationTime) => {
+    const date = new Date(creationTime);
+    const locale = navigator.locale;
+
+    const options = {
+      hour: "numeric",
+      minute: "numeric",
+      weekday: "short",
+      day: "numeric",
+      month: "short",
+      year: "numeric",
+    };
+
+    return new Intl.DateTimeFormat(locale, options).format(date);
   };
-
-  const signinDate = new Intl.DateTimeFormat(locale, options).format(date);
 
   const handleClick = async () => {
     await sessionLogout(_id);
@@ -57,7 +62,7 @@ export default function Session({ session, active }) {
             )}
           </div>
           <div className={styles["h4"]}>🌐 {osDetails.browser}</div>
-          <div className={styles["h6"]}>{signinDate}</div>
+          <div className={styles["h6"]}>{signInDate(creationTime)}</div>
         </div>
       </div>
       <div>

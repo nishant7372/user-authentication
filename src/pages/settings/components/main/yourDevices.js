@@ -14,9 +14,11 @@ import Successful from "../../../../Components/Message/successful";
 
 export default function CurrentSessions() {
   const { user, currentSessionID } = useAuthContext();
-  const { sessions } = user;
   const { logoutAllOther, error, isPending } = useLogoutAllOther();
   const { readProfile } = useReadProfile();
+
+  const { sessions } = user;
+
   const [renderMsg, setRenderMsg] = useState(false);
 
   const handleLogOutAllOther = async () => {
