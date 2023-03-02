@@ -10,12 +10,20 @@
 }
 
 .h3 {
+  font-size: 2rem;
   font-weight: 500;
+}
+
+.h4 {
+  margin-top: -1.2rem;
+  font-size: 1.6rem;
+  color: rgba(255, 255, 255, 0.9);
 }
 
 .h6 {
   font-size: 1.5rem;
   color: rgba(255, 255, 255, 0.8);
+  margin-top: -0.5rem;
 }
 
 .big-img {
@@ -26,15 +34,14 @@
 .session-name {
   display: flex;
   align-items: center;
-  gap: 1rem;
+  gap: 0.8rem;
 }
 
-@media screen and (max-width: 800px) {
+@media screen and (max-width: 850px) {
   .session {
     flex-direction: column;
   }
-  .session-name {
-    flex-direction: column;
-    align-items: flex-start;
+  .container {
+    padding-bottom: 1.5rem;
   }
 }

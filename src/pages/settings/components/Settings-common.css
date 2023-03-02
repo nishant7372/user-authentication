@@ -18,11 +18,13 @@
 }
 
 .description {
+  font-size: 1.8rem;
   color: var(--description);
   align-self: flex-start;
 }
 
 .warning {
+  font-size: 1.8rem;
   font-weight: 500;
 }
 
@@ -116,4 +118,8 @@
   .logOutButton {
     font-size: 2rem;
   }
+}
+
+.seperator {
+  border-bottom: 1px solid rgba(255, 255, 255, 0.7);
 }

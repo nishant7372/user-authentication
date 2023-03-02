@@ -7,7 +7,7 @@
   font-size: large;
   width: 80%;
   margin: auto;
-  height: 470px;
+  height: max(470px, 75vh);
   display: flex;
   flex-direction: column;
   gap: 0.5rem;
