@@ -1,11 +1,14 @@
 import styles from "./session.module.css";
+import "../Settings-common.css";
+
+import { useState } from "react";
+
 import { useSessionLogout } from "../../../../hooks/useSessionLogout";
 import { useReadProfile } from "../../../../hooks/useReadProfile";
+
 import Successful from "../../../../Components/Message/successful";
 import Error from "../../../../Components/Message/error";
 import Spinner from "../../../../Components/Spinner/Spinner";
-import "../Settings-common.css";
-import { useState } from "react";
 
 export default function Session({ session, active }) {
   const { _id } = session;

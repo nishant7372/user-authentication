@@ -1,12 +1,14 @@
-import { useAuthContext } from "../../../../hooks/useAuthContext";
 import styles from "./yourDevices.module.css";
 import "../Settings-common.css";
+import { useEffect, useState } from "react";
+
+import { useAuthContext } from "../../../../hooks/useAuthContext";
 import { useLogoutAllOther } from "../../../../hooks/useLogoutAllOther";
-import Spinner from "../../../../Components/Spinner/Spinner";
-import Session from "../session/session";
 import { useGetCurrentSession } from "../../../../hooks/useGetCurrentSession";
 import { useReadProfile } from "../../../../hooks/useReadProfile";
-import { useEffect, useState } from "react";
+
+import Spinner from "../../../../Components/Spinner/Spinner";
+import Session from "../session/session";
 import Error from "../../../../Components/Message/error";
 import Successful from "../../../../Components/Message/successful";
 
