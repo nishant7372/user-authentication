@@ -12,7 +12,7 @@ export const authReducer = (state, action) => {
     case "AUTH_IS_READY":
       return { ...state, user: action.payload, authIsReady: true };
     case "SESSION_INDEX":
-      return { ...state, currentSession: action.payload };
+      return { ...state, currentSessionID: action.payload };
     default:
       return state;
   }
