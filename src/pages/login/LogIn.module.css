@@ -5,6 +5,7 @@
   gap: max(2rem, 17px);
   padding: max(3.5rem, 29.75px);
   color: white;
+  text-align: center;
 }
 
 .login-form label {

@@ -2,10 +2,14 @@ import { useState } from "react";
 import { useAuthContext } from "./useAuthContext";
 import axios from "axios";
 
+const bowser = require("bowser");
+
 export const useSignup = () => {
   const { dispatch } = useAuthContext();
   const [error, setError] = useState(null);
   const [isPending, setIsPending] = useState(false);
+
+  const browser = bowser.getParser(window.navigator.userAgent);
 
   const signup = async (email, password, name) => {
     setError(null);
@@ -13,7 +17,6 @@ export const useSignup = () => {
 
     try {
       //user sign up with name, email and password
-      const now = new Date().toISOString();
       const res = await axios({
         method: "post",
         url: "http://localhost:3000/users",
@@ -22,10 +25,10 @@ export const useSignup = () => {
           email,
           password,
           age: 20,
-          sessionCreatedTime: now,
-          osname: navigator.userAgentData.platform,
-          time: now,
-          model: navigator.userAgentData.mobile ? "mobile" : "desktop",
+          creationTime: new Date().toISOString(),
+          osname: `${browser.getOSName()} ${browser.getOSVersion()}`,
+          model: browser.getPlatformType(),
+          browser: `${browser.getBrowserName()}`,
         },
         headers: {
           "Access-Control-Allow-Origin": "*",
