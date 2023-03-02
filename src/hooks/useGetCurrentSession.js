@@ -25,7 +25,7 @@ export const useGetCurrentSession = () => {
       setError(null);
       dispatch({
         type: "SESSION_INDEX",
-        payload: res.data.currentSessionIndex,
+        payload: res.data.session_id,
       });
       return res;
     } catch (err) {

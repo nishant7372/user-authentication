@@ -7,12 +7,13 @@ import Spinner from "../../../../Components/Spinner/Spinner";
 import "../Settings-common.css";
 import { useState } from "react";
 
-export default function Session({ session, currentSession }) {
-  const { osname, time, _id, model } = session;
+export default function Session({ session, active }) {
+  const { _id } = session;
+  const { osDetails, creationTime } = session.session;
   const { sessionLogout, error, isPending } = useSessionLogout();
   const { readProfile } = useReadProfile();
   const [renderMsg, setRenderMsg] = useState(false);
-  const date = new Date(time);
+  const date = new Date(creationTime);
   const locale = navigator.locale;
 
   const options = {
@@ -37,15 +38,22 @@ export default function Session({ session, currentSession }) {
 
   return (
     <div className={styles["session"]}>
-      <div className="flex-row">
+      <div className={`${styles["container"]} flex-row`}>
         <div className={styles["big-img"]}>
-          {model === "mobile" ? "📲" : "🖥️"}
+          {osDetails.model === "desktop" ? "💻" : "📲"}
         </div>
         <div className="flex-col">
           <div className={styles["session-name"]}>
-            <div className={styles["h3"]}>{osname}</div>
-            {currentSession && <Successful successful={"Current Session"} />}
+            <div className={styles["h3"]}>{osDetails.osname}</div>
+            {active && (
+              <Successful
+                className={styles["active-now"]}
+                successful={"Active Now"}
+                color={"skyblue"}
+              />
+            )}
           </div>
+          <div className={styles["h4"]}>🌐 {osDetails.browser}</div>
           <div className={styles["h6"]}>{signinDate}</div>
         </div>
       </div>

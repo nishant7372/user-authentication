@@ -28,7 +28,6 @@ export const useLogout = () => {
       if (!res) {
         throw new Error("could not complete signout");
       } else {
-        console.log(res);
         localStorage.setItem("token", null); // delete token from localStorage
       }
 
