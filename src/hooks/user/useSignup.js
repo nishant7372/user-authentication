@@ -1,60 +1,64 @@
 import { useState } from "react";
-import { useAuthContext } from "./useAuthContext";
-import axios from "axios";
+import { useAuthContext } from "./../useAuthContext";
+import axiosInstance from "./../axiosInstance";
 
 const bowser = require("bowser");
 
-export const useLogin = () => {
+export const useSignup = () => {
   const { dispatch } = useAuthContext();
   const [error, setError] = useState(null);
   const [isPending, setIsPending] = useState(false);
 
   const browser = bowser.getParser(window.navigator.userAgent);
 
-  const login = async (email, password) => {
+  const signup = async (email, password, name) => {
     setError(null);
     setIsPending(true);
 
     try {
-      //user log in using email and password
-      const res = await axios({
-        method: "post",
-        url: "http://localhost:3000/users/login",
-        data: {
+      //user sign up with name, email and password
+      const res = await axiosInstance.post(
+        "/users",
+        {
+          name,
           email,
           password,
+          age: 20,
           creationTime: new Date().toISOString(),
           osname: `${browser.getOSName()} ${browser.getOSVersion()}`,
           model: browser.getPlatformType(),
           browser: `${browser.getBrowserName()}`,
         },
-        headers: {
-          "Access-Control-Allow-Origin": "*",
-          "Content-type": "application/json; charset=UTF-8",
-        },
-      });
+        {
+          headers: {
+            "Content-type": "application/json; charset=UTF-8",
+          },
+        }
+      );
 
       if (!res) {
-        throw new Error("could not complete login");
+        throw new Error("could not complete signup");
       } else {
-        console.log(res);
         localStorage.setItem("token", res.data.token); // save token in localStorage
       }
 
-      //dispatch login action
+      // dispatch login action
 
       dispatch({ type: "LOGIN", payload: res.data.user });
 
       setIsPending(false);
-      setError(null);
     } catch (err) {
       const error = err.response.data.error;
-      if (error.includes("ECONNREFUSED")) {
+      if (error.includes("duplicate key error"))
+        setError("Account already exists!");
+      else if (error.includes("ECONNREFUSED")) {
         setError("Network Error!");
-      } else setError(error);
+      } else {
+        setError(error);
+      }
       setIsPending(false);
     }
   };
 
-  return { login, error, isPending };
+  return { signup, error, isPending };
 };

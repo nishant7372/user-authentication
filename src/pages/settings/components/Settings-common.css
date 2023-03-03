@@ -12,7 +12,7 @@
 }
 
 .heading {
-  font-size: 2.5rem;
+  font-size: 2.3rem;
   border-bottom: 2px solid var(--heading);
   align-self: flex-start;
 }
@@ -59,7 +59,7 @@
 .updateButton,
 .deleteButton,
 .logOutButton {
-  padding: 0.3rem 0.8rem;
+  padding: 0.2rem 0.8rem;
   border-radius: 4px;
   transition: all 0.2s ease;
   display: inline-block;

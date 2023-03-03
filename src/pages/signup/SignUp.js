@@ -1,7 +1,9 @@
-import { useState } from "react";
 import styles from "./SignUp.module.css";
-import { useSignup } from "../../hooks/useSignup";
-// import { Fade } from "react-awesome-reveal";
+
+import { useState } from "react";
+
+import { useSignup } from "../../hooks//user/useSignup";
+
 import Spinner from "../../Components/Spinner/Spinner";
 
 export default function SignUp() {
@@ -71,6 +73,7 @@ export default function SignUp() {
               <img
                 src={require(`../../img/eye-${passwordType}.png`)}
                 onClick={showPassword}
+                alt="eye-toggle"
               />
             </div>
           </div>

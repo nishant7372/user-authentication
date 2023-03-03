@@ -1,12 +1,16 @@
 import styles from "./Settings.module.css";
+
+import { useEffect, useState } from "react";
+
 import Option from "./components/option/option";
 import Setting from "./components/setting/setting";
-import UploadAvatar from "./components/main/uploadAvatar";
+
 import BasicInfo from "./components/main/basicInfo";
-import DeleteAccount from "./components/main/deleteAccount";
-import YourDevices from "./components/main/yourDevices";
+import UploadAvatar from "./components/main/uploadAvatar";
+
 import Security from "./components/main/security";
-import { useEffect, useState } from "react";
+import YourDevices from "./components/main/yourDevices";
+import DeleteAccount from "./components/main/deleteAccount";
 
 export default function Settings() {
   const [setting, setSetting] = useState(1);

@@ -1,8 +1,11 @@
-import React, { useState } from "react";
 import styles from "./uploadAvatar.module.css";
 import "../Settings-common.css";
-import { useUploadAvatar } from "../../../../hooks/useUploadAvatar";
-import { useReadProfile } from "../../../../hooks/useReadProfile";
+
+import React, { useState } from "react";
+
+import { useUploadAvatar } from "../../../../hooks/user/useUploadAvatar";
+import { useReadProfile } from "../../../../hooks/user/useReadProfile";
+
 import Spinner from "../../../../Components/Spinner/Spinner";
 import Error from "../../../../Components/Message/error";
 import Successful from "../../../../Components/Message/successful";
@@ -32,6 +35,7 @@ export default function UploadAvatar() {
       <div className={"heading"}>Upload Avatar</div>
       <div className={`${styles["avatar-img"]}`}>
         <img
+          className={styles["avatar-image"]}
           alt="not found"
           src={isUploaded ? URL.createObjectURL(selectedImage) : selectedImage}
         />
@@ -77,8 +81,7 @@ export default function UploadAvatar() {
           </label>
           <input
             type="file"
-            accept="image/*"
-            capture="camera"
+            // accept="image/*"
             id="myFileInput"
             className={styles["avatar-input"]}
             onChange={(e) => {

@@ -9,7 +9,7 @@ export default function Option({ emoji, option, OptionNo, setOption, active }) {
       className={`${styles["option"]} ${styles[active ? "active" : ""]}`}
       onClick={() => handleOption(OptionNo)}
     >
-      <span className={styles["emoji"]}>{emoji}</span>
+      <span className={styles["emoji"]}>{emoji} </span>
       <span className={styles["text"]}>{option}</span>
     </div>
   );

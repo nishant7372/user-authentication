@@ -1,5 +1,5 @@
 import { createContext, useEffect, useReducer } from "react";
-import axios from "axios";
+import axiosInstance from "../hooks/axiosInstance";
 
 export const AuthContext = createContext();
 
@@ -21,20 +21,20 @@ export const authReducer = (state, action) => {
 // only on refresh
 const readProfile = async (token, dispatch) => {
   try {
-    const res = await axios({
-      method: "get",
-      url: "http://localhost:3000/users/me",
+    const res = await axiosInstance.get("/users/me", {
       headers: {
-        "Access-Control-Allow-Origin": "*",
         "Content-type": "application/json; charset=UTF-8",
         Authorization: `Bearer ${token}`,
       },
     });
 
     // dispatch auth_is_ready
-
     dispatch({ type: "AUTH_IS_READY", payload: res.data });
   } catch (err) {
+    // when unauthorize delete token from localstorage
+    if (err.response.status === 401) {
+      localStorage.setItem("token", null); //delete token from localStorage
+    }
     dispatch({ type: "AUTH_IS_READY", payload: null });
   }
 };
@@ -43,11 +43,14 @@ export const AuthContextProvider = ({ children }) => {
   const [state, dispatch] = useReducer(authReducer, {
     user: null,
     authIsReady: false,
-    currentSession: null,
+    currentSessionID: null,
   });
 
   useEffect(() => {
-    readProfile(localStorage.getItem("token"), dispatch);
+    // reading Profile only when token is not null
+    if (localStorage.getItem("token") !== "null")
+      readProfile(localStorage.getItem("token"), dispatch);
+    else dispatch({ type: "AUTH_IS_READY" }); // on each refresh dispatch auth_is_ready
   }, []);
 
   return (

@@ -1,9 +1,10 @@
 import styles from "./NavBar.module.css";
 import "./NavBar.css";
-import { NavLink } from "react-router-dom";
-import { useLogout } from "../../hooks/useLogout";
+
+import { NavLink, useNavigate, useLocation } from "react-router-dom";
+
+import { useLogout } from "../../hooks/user/useLogout";
 import { useAuthContext } from "../../hooks/useAuthContext";
-import { useNavigate, useLocation } from "react-router-dom";
 
 export default function NavBar() {
   const navigate = useNavigate();
@@ -51,7 +52,7 @@ export default function NavBar() {
                 Hello, {parseUserName(user.name)}
               </div>
               <div className={`${styles[`btn`]}`} onClick={logout}>
-                LogOut
+                Logout
               </div>
             </>
           )}

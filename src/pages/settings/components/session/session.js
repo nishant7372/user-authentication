@@ -3,8 +3,8 @@ import "../Settings-common.css";
 
 import { useState } from "react";
 
-import { useSessionLogout } from "../../../../hooks/useSessionLogout";
-import { useReadProfile } from "../../../../hooks/useReadProfile";
+import { useSessionLogout } from "../../../../hooks/user/useSessionLogout";
+import { useReadProfile } from "../../../../hooks/user/useReadProfile";
 
 import Successful from "../../../../Components/Message/successful";
 import Error from "../../../../Components/Message/error";
@@ -18,7 +18,7 @@ export default function Session({ session, active }) {
 
   const { _id } = session;
   const { osDetails, creationTime } = session.session;
-
+  console.log(osDetails);
   const signInDate = (creationTime) => {
     const date = new Date(creationTime);
     const locale = navigator.locale;
@@ -36,7 +36,7 @@ export default function Session({ session, active }) {
   };
 
   const handleClick = async () => {
-    await sessionLogout(_id);
+    await sessionLogout(_id, active);
     await readProfile();
     setRenderMsg(true);
     setInterval(() => {
@@ -44,11 +44,29 @@ export default function Session({ session, active }) {
     }, 3000);
   };
 
+  const showDevice = (model) => {
+    switch (model) {
+      case "desktop":
+        return "💻";
+      case "mobile":
+        return "📲";
+      default:
+        return "💻";
+    }
+  };
+
   return (
     <div className={styles["session"]}>
       <div className={`${styles["container"]} flex-row`}>
         <div className={styles["big-img"]}>
-          {osDetails.model === "desktop" ? "💻" : "📲"}
+          {osDetails.model === "tablet" && (
+            <img
+              src={require("./../../../../img/tablet.png")}
+              className={styles["device-img"]}
+              alt="tablet"
+            />
+          )}
+          {osDetails.model !== "tablet" && showDevice(osDetails.model)}
         </div>
         <div className="flex-col">
           <div className={styles["session-name"]}>

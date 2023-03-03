@@ -1,5 +1,5 @@
 import { useState } from "react";
-import axios from "axios";
+import axiosInstance from "../axiosInstance";
 
 export const useUploadAvatar = () => {
   const [error, setError] = useState(null);
@@ -11,16 +11,11 @@ export const useUploadAvatar = () => {
     const header = localStorage.getItem("token");
 
     try {
-      //user log in using email and password
       const formData = new FormData();
       formData.append("avatar", avatarImage);
 
-      const res = await axios({
-        method: "post",
-        url: "http://localhost:3000/users/me/avatar",
-        data: formData,
+      const res = await axiosInstance.post("/users/me/avatar", formData, {
         headers: {
-          "Access-Control-Allow-Origin": "*",
           "Content-Type": "multipart/form-data",
           Authorization: `Bearer ${header}`,
         },
@@ -30,7 +25,6 @@ export const useUploadAvatar = () => {
         throw new Error("Unable to upload image");
       }
       setIsPending(false);
-      setError(null);
     } catch (err) {
       setError(err.response.data.error);
       setIsPending(false);

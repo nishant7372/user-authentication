@@ -3,9 +3,9 @@ import "../Settings-common.css";
 import { useEffect, useState } from "react";
 
 import { useAuthContext } from "../../../../hooks/useAuthContext";
-import { useLogoutAllOther } from "../../../../hooks/useLogoutAllOther";
-import { useGetCurrentSession } from "../../../../hooks/useGetCurrentSession";
-import { useReadProfile } from "../../../../hooks/useReadProfile";
+import { useLogoutAllOther } from "../../../../hooks/user/useLogoutAllOther";
+import { useGetCurrentSession } from "../../../../hooks/user/useGetCurrentSession";
+import { useReadProfile } from "../../../../hooks/user/useReadProfile";
 
 import Spinner from "../../../../Components/Spinner/Spinner";
 import Session from "../session/session";
@@ -36,6 +36,8 @@ export default function CurrentSessions() {
     );
   };
 
+  const activeSession = getActiveSession(sessions);
+
   const getOtherSessions = (sessions) => {
     return sessions.filter(
       (session) => currentSessionID !== session._id.toString()
@@ -52,7 +54,7 @@ export default function CurrentSessions() {
 
   return (
     <div className={styles["session-Box"]}>
-      {currentSessionID && sessions && (
+      {activeSession && sessions && (
         <>
           <div className={"heading"}>Your Devices</div>
           <p className={"description"}>
@@ -60,7 +62,7 @@ export default function CurrentSessions() {
             sessions from the same device.
           </p>
           <ul className={styles["sessionContainer"]}>
-            <Session session={getActiveSession(sessions)} active={true} />
+            <Session session={activeSession} active={true} />
             <div className="seperator"></div>
             {[...getOtherSessions(sessions)].reverse().map((session) => (
               <Session

@@ -21,10 +21,9 @@
 }
 
 @media screen and (max-width: 560px) {
-  .emoji {
-    font-size: 2.5rem;
-  }
-  .text {
-    display: none;
+  .option {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
   }
 }

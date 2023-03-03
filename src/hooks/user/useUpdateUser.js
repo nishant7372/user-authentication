@@ -1,39 +1,33 @@
 import { useState } from "react";
-import axios from "axios";
+import axiosInstance from "../axiosInstance";
 
-export const useSessionLogout = () => {
+export const useUpdateUser = () => {
   const [error, setError] = useState(null);
   const [isPending, setIsPending] = useState(false);
 
-  const sessionLogout = async (id) => {
+  const updateUser = async (updates) => {
     setError(null);
     setIsPending(true);
     const header = localStorage.getItem("token");
 
     try {
-      //session logout out
-
-      const res = await axios({
-        method: "post",
-        url: `http://localhost:3000/users/logout/${id}`,
+      const res = await axiosInstance.patch("/users/me", updates, {
         headers: {
-          "Access-Control-Allow-Origin": "*",
           "Content-type": "application/json; charset=UTF-8",
           Authorization: `Bearer ${header}`,
         },
       });
 
       if (!res) {
-        throw new Error("could not complete signout");
+        throw new Error("Unable to update");
       }
 
       setIsPending(false);
-      setError(null);
     } catch (err) {
-      setError(err.message);
+      setError(err.response.data);
       setIsPending(false);
     }
   };
 
-  return { sessionLogout, error, isPending };
+  return { updateUser, error, isPending };
 };

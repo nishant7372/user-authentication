@@ -78,7 +78,6 @@
   .left {
     padding-left: 2rem;
     padding-right: 1rem;
-    font-size: 2.2rem !important;
   }
 
   .options {
@@ -98,5 +97,18 @@
     align-items: center;
     width: 100%;
     margin: auto 2rem;
+    justify-content: space-evenly;
+  }
+}
+
+@media screen and (max-width: 500px) {
+  .settingsBox {
+    width: 100%;
+  }
+  .settings-bar {
+    height: 10%;
+  }
+  .settingsBox {
+    height: max(470px, 78vh);
   }
 }

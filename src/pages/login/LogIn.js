@@ -1,8 +1,10 @@
-import { useState } from "react";
-// import { Fade } from "react-awesome-reveal";
-import { useLogin } from "../../hooks/useLogin";
-import Spinner from "../../Components/Spinner/Spinner";
 import styles from "./LogIn.module.css";
+
+import { useState } from "react";
+
+import { useLogin } from "../../hooks/user/useLogin";
+
+import Spinner from "../../Components/Spinner/Spinner";
 
 export default function LogIn() {
   const [passwordType, setPasswordType] = useState("password");
@@ -13,7 +15,7 @@ export default function LogIn() {
   const { login, error, isPending } = useLogin();
 
   const parseError = (error) => {
-    if (error.includes("unable to login")) {
+    if (error.includes("Unable to login")) {
       return "⚠️ Incorrect Email or Password";
     } else {
       return "⚠️" + error;

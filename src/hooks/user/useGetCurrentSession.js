@@ -1,6 +1,6 @@
 import { useState } from "react";
-import axios from "axios";
-import { useAuthContext } from "./useAuthContext";
+import { useAuthContext } from "./../useAuthContext";
+import axiosInstance from "../axiosInstance";
 
 export const useGetCurrentSession = () => {
   const [error, setError] = useState(null);
@@ -10,26 +10,29 @@ export const useGetCurrentSession = () => {
   const getCurrentSession = async () => {
     setError(null);
     setIsPending(true);
+
     const header = localStorage.getItem("token");
+
     try {
-      const res = await axios({
-        method: "get",
-        url: "http://localhost:3000/users/currentSession",
+      const res = await axiosInstance.get("/users/currentSession", {
         headers: {
-          "Access-Control-Allow-Origin": "*",
           "Content-type": "application/json; charset=UTF-8",
           Authorization: `Bearer ${header}`,
         },
       });
+
       setIsPending(false);
-      setError(null);
-      dispatch({
-        type: "SESSION_INDEX",
-        payload: res.data.session_id,
-      });
-      return res;
+
+      if (!res) {
+        throw new Error("unable to get current session details");
+      } else {
+        dispatch({
+          type: "SESSION_INDEX",
+          payload: res.data.session_id,
+        });
+      }
     } catch (err) {
-      setError(err);
+      setError(err.message);
       setIsPending(false);
       dispatch({ type: "SESSION_INDEX", payload: null });
     }

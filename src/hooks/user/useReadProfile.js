@@ -1,6 +1,6 @@
 import { useState } from "react";
-import { useAuthContext } from "./useAuthContext";
-import axios from "axios";
+import { useAuthContext } from "./../useAuthContext";
+import axiosInstance from "./../axiosInstance";
 
 export const useReadProfile = () => {
   const { dispatch } = useAuthContext();
@@ -8,15 +8,13 @@ export const useReadProfile = () => {
   const [isPending, setIsPending] = useState(false);
 
   const readProfile = async () => {
+    if (localStorage.getItem("token") === "null") return;
     setError(null);
     setIsPending(true);
     const header = localStorage.getItem("token");
     try {
-      const res = await axios({
-        method: "get",
-        url: "http://localhost:3000/users/me",
+      const res = await axiosInstance.get("/users/me", {
         headers: {
-          "Access-Control-Allow-Origin": "*",
           "Content-type": "application/json; charset=UTF-8",
           Authorization: `Bearer ${header}`,
         },
@@ -26,9 +24,12 @@ export const useReadProfile = () => {
 
       dispatch({ type: "AUTH_IS_READY", payload: res.data });
       setIsPending(false);
-      setError(null);
     } catch (err) {
       dispatch({ type: "AUTH_IS_READY", payload: null });
+
+      if (err.response.status === 401) {
+        localStorage.setItem("token", null); //delete token from localStorage when not Authorized
+      }
       setError(err);
       setIsPending(false);
     }

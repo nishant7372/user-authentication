@@ -1,5 +1,5 @@
 import { useState } from "react";
-import axios from "axios";
+import axiosInstance from "../axiosInstance";
 
 export const useLogoutAllOther = () => {
   const [error, setError] = useState(null);
@@ -11,25 +11,24 @@ export const useLogoutAllOther = () => {
     const header = localStorage.getItem("token");
 
     try {
-      //user all session sign out
+      //user all other session log out
 
-      const res = await axios({
-        method: "post",
-        url: "http://localhost:3000/users/logoutAllOther",
-        headers: {
-          "Access-Control-Allow-Origin": "*",
-          "Content-type": "application/json; charset=UTF-8",
-          Authorization: `Bearer ${header}`,
-        },
-      });
+      const res = await axiosInstance.post(
+        "/users/logoutAllOther",
+        {},
+        {
+          headers: {
+            "Content-type": "application/json; charset=UTF-8",
+            Authorization: `Bearer ${header}`,
+          },
+        }
+      );
       if (res.status !== 200) {
         throw new Error("could not complete logOut");
       }
 
       setIsPending(false);
-      setError(null);
     } catch (err) {
-      console.log(err);
       setError(err.message);
       setIsPending(false);
     }

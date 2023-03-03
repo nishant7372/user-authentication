@@ -1,13 +1,15 @@
 import styles from "./deleteAccount.module.css";
 import "../Settings-common.css";
 
-import { useDeleteAccount } from "../../../../hooks/useDeleteAccount";
-import Confirm from "../../../../Components/Confirm/Confirm";
 import { useState } from "react";
+
+import { useDeleteAccount } from "../../../../hooks/user/useDeleteAccount";
+
+import Confirm from "../../../../Components/Confirm/Confirm";
 
 export default function DeleteAccount() {
   const [showConfirm, setShowConfirm] = useState(false);
-  const { deleteAccount, error, isPending } = useDeleteAccount();
+  const { deleteAccount, error } = useDeleteAccount();
 
   const handleClick = () => {
     setShowConfirm(true);

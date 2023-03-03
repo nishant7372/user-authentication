@@ -61,3 +61,7 @@
   font-size: max(1.8rem, 15.3px);
   color: rgba(255, 255, 255, 0.4);
 }
+
+.label {
+  font-size: 1.9rem;
+}

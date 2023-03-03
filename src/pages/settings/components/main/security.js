@@ -1,7 +1,10 @@
-import { useState } from "react";
 import styles from "./security.module.css";
 import "../Settings-common.css";
-import { useUpdateUser } from "../../../../hooks/useUpdateUser";
+
+import { useState } from "react";
+
+import { useUpdateUser } from "../../../../hooks/user/useUpdateUser";
+
 import Spinner from "../../../../Components/Spinner/Spinner";
 import Error from "../../../../Components/Message/error";
 import Successful from "../../../../Components/Message/successful";
@@ -44,10 +47,13 @@ export default function Security() {
 
   return (
     <div className={styles["security-box"]}>
-      <div className={"heading"}>Security</div>
+      <div className={"heading"}>Change Password</div>
       <form onSubmit={handleUpdate} className={styles["change-password"]}>
         <div className={"flex-col"}>
-          <label htmlFor="newPassword"> New password: </label>
+          <label htmlFor="newPassword" className={styles["label"]}>
+            {" "}
+            New password:{" "}
+          </label>
           <div className={styles["password-field"]}>
             <input
               type={passwordType}
@@ -66,7 +72,10 @@ export default function Security() {
           </div>
         </div>
         <div className={"flex-col"}>
-          <label htmlFor="newPassword"> Confirm new password: </label>
+          <label htmlFor="newPassword" className={styles["label"]}>
+            {" "}
+            Confirm new password:{" "}
+          </label>
           <div className={styles["password-field"]}>
             <input
               type={passwordType}

@@ -1,19 +1,24 @@
 import styles from "./basicInfo.module.css";
 import "../Settings-common.css";
-import { useAuthContext } from "../../../../hooks/useAuthContext";
-import { useUpdateUser } from "../../../../hooks/useUpdateUser";
-import { useReadProfile } from "../../../../hooks/useReadProfile";
+
 import { useState } from "react";
+
+import { useAuthContext } from "../../../../hooks/useAuthContext";
+import { useUpdateUser } from "../../../../hooks/user/useUpdateUser";
+import { useReadProfile } from "../../../../hooks/user/useReadProfile";
+
 import Spinner from "../../../../Components/Spinner/Spinner";
 import Error from "../../../../Components/Message/error";
 import Successful from "../../../../Components/Message/successful";
 
 export default function BasicInfo() {
   const { user } = useAuthContext();
-  const [name, setName] = useState(user.name);
-  const [age, setAge] = useState(user.age);
   const { updateUser, error, isPending } = useUpdateUser();
   const { readProfile } = useReadProfile();
+
+  const [name, setName] = useState(user.name);
+  const [age, setAge] = useState(user.age);
+
   const [renderMsg, setRenderMsg] = useState(false);
 
   const handleSave = async () => {
